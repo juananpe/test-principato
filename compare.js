@@ -27,7 +27,8 @@ let capture = async (page, index) => {
   // Set viewport width and height
   await page.setViewport({ width: 1280, height: 720 });
 
-  const website_url = 'http://localhost:5500/';
+  const website_url = process.argv[2] || 'http://localhost:5500/'
+
 
   // Open URL in current page
   await page.goto(website_url);
