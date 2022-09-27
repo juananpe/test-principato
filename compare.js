@@ -53,17 +53,23 @@ let capture = async (page, index) => {
   await browser.close();
 
 
+  // Compare images
+  let numEquivalent = 0
   for (let i = 0; i <= 8; i++) {
     await Promise.all([Jimp.read(`./img${i}.jpg`), Jimp.read(`imgs/img${i}.jpg`)]).then(([img1, img2]) => {
       let distance = Jimp.distance(img1, img2); // perceived distance
       let diff = Jimp.diff(img1, img2); // pixel difference
 
       if (distance < 0.15 || diff.percent < 0.15) {
-        console.log(`img${i} match`)
+        // console.log(`img${i} match`)
+        numEquivalent++
       } else {
         console.log(`img${i} not a match`)
       }
     })
+  }
+  if (numEquivalent == 9) {
+    console.log("Todo OK!")
   }
 
 })();
