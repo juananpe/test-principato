@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 const Jimp = require('jimp');
 
+const base = __dirname
+
 let capture = async (page, index) => {
   let selector = "#image"
   await page.waitForSelector(selector);
@@ -10,7 +12,7 @@ let capture = async (page, index) => {
 
   // Capture screenshot
   await element.screenshot({
-    path: `img${index}.jpg`,
+    path: `${base}/img${index}.jpg`,
   });
 
 }
@@ -56,7 +58,7 @@ let capture = async (page, index) => {
   // Compare images
   let numEquivalent = 0
   for (let i = 0; i <= 8; i++) {
-    await Promise.all([Jimp.read(`./img${i}.jpg`), Jimp.read(`imgs/img${i}.jpg`)]).then(([img1, img2]) => {
+    await Promise.all([Jimp.read(`${base}/img${i}.jpg`), Jimp.read(`${base}/imgs/img${i}.jpg`)]).then(([img1, img2]) => {
       let distance = Jimp.distance(img1, img2); // perceived distance
       let diff = Jimp.diff(img1, img2); // pixel difference
 
@@ -73,7 +75,3 @@ let capture = async (page, index) => {
   }
 
 })();
-
-
-
-
