@@ -33,12 +33,17 @@ let capture = async (page, index) => {
   // Open URL in current page
   await page.goto(website_url);
 
+  //       fre  lim  mand  manz    mel   sesamo  fre
+  // 0-3  3-6   6-9  9-12  12-15  15-18  18-21  21-24
+  // 1.5  4.5   7.5  10.5   13.5   16.5   19.5   22.5
+
+  await new Promise(r => setTimeout(r, 1500));
 
   for (let i = 0; i <= 7; i++) {
 
     await capture(page, i)
 
-    await new Promise(r => setTimeout(r, 3100));
+    await new Promise(r => setTimeout(r, 3000));
   }
 
   // capture(7) and capture(8) should be exactly the same (carrousel is stopped)
