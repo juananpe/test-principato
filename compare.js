@@ -19,8 +19,8 @@ let capture = async (page, index) => {
 (async () => {
 
   // Create a browser instance
-  const browser = await puppeteer.launch({ headless: true });
-
+  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: true });
+  
   // Create a new page
   const page = await browser.newPage();
 
@@ -49,8 +49,8 @@ let capture = async (page, index) => {
 
   for (let i = 0; i <= 8; i++) {
     await Promise.all([Jimp.read(`./img${i}.jpg`), Jimp.read(`imgs/img${i}.jpg`)]).then(([img1, img2]) => {
-      var distance = Jimp.distance(img1, img2); // perceived distance
-      var diff = Jimp.diff(img1, img2); // pixel difference
+      let distance = Jimp.distance(img1, img2); // perceived distance
+      let diff = Jimp.diff(img1, img2); // pixel difference
 
       if (distance < 0.15 || diff.percent < 0.15) {
         console.log(`img${i} match`)
